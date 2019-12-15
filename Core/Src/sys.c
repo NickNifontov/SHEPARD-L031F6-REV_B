@@ -31,7 +31,7 @@ void MX_SYS_Init(void)
 
   /** PVD Configuration 
   */
-  sConfigPVD.PVDLevel = PWR_PVDLEVEL_4;
+  sConfigPVD.PVDLevel = PWR_PVDLEVEL_3;
   sConfigPVD.Mode = PWR_PVD_MODE_IT_RISING_FALLING;
   HAL_PWR_ConfigPVD(&sConfigPVD);
   /** Enable the PVD Output 

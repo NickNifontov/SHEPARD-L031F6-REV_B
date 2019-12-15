@@ -162,6 +162,10 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
 	Global_TEMP=aADCxConvertedData[2];
 	Global_SLOWCURR=aADCxConvertedData[3];
 
+	if (Global_CURR>=ADC_KLAPAN_1_8_x) {
+		Blocked_by_150=1;
+	}
+
 	Global_CUR_BASE_SUMMATOR=Global_CURR+Global_CUR_BASE_SUMMATOR;
 	Global_CUR_BASE_CNT++;
 	Global_CUR_AVG_SUMMATOR=Global_CUR_AVG_SUMMATOR+Global_CURR;
@@ -362,7 +366,7 @@ int main(void)
   MX_IWDG_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
+  IWDG_Reset();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -370,18 +374,10 @@ int main(void)
 
   /* Start scheduler */
   osKernelStart();
-  
-  /* We should never get here as control is now taken by the scheduler */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
   }
-  /* USER CODE END 3 */
 }
 
 /**
@@ -425,37 +421,14 @@ void SystemClock_Config(void)
   }
 }
 
-/* USER CODE BEGIN 4 */
-
-/* USER CODE END 4 */
-
-/**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
 void Error_Handler(void)
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-
-  /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
-/**
-  * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
-  * @retval None
-  */
 void assert_failed(uint8_t *file, uint32_t line)
 { 
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
 }
-#endif /* USE_FULL_ASSERT */
+#endif
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

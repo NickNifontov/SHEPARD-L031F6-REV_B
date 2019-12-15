@@ -93,7 +93,7 @@ void HAL_COMP_MspDeInit(COMP_HandleTypeDef* compHandle)
     * Uncomment the line below to disable the "ADC1_COMP_IRQn" interrupt
     * Be aware, disabling shared interrupt may affect other IPs
     */
-    /* HAL_NVIC_DisableIRQ(ADC1_COMP_IRQn); */
+     HAL_NVIC_DisableIRQ(ADC1_COMP_IRQn);
   /* USER CODE END COMP2:ADC1_COMP_IRQn disable */
 
   /* USER CODE BEGIN COMP2_MspDeInit 1 */

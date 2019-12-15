@@ -175,6 +175,8 @@ extern volatile uint16_t Power_Percent_Base;
 
 extern volatile float TEMP_C;
 
+#define ADC_KLAPAN_1_8_x 1560 // 1.8x
+
 extern volatile uint16_t   aADCxConvertedData[ADC_CONVERTED_DATA_BUFFER_SIZE]; /* Variable containing ADC conversions data */
 extern volatile uint16_t Global_AB;
 extern volatile uint16_t Global_TEMP;
