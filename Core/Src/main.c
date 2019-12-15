@@ -122,7 +122,7 @@ void Calc_Temp(void) {
 
 	    // convert the value to resistance
 		double average=Global_TEMP_AVG;
-	    average = 3300/average-1;
+	    average = 4095/average-1;
 	    average = SERIESRESISTOR * average;
 
 	    TEMP_C = average / THERMISTORNOMINAL;     // (R/Ro)
