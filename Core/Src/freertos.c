@@ -342,7 +342,7 @@ void StartAB_Task(void const * argument)
 			LED_Blink_X(BUZZER_GPIO_Port,BUZZER_Pin,4,100);
 			osDelay(3000);
 		}
-		if ( (Blocked_by_AB==1) && (Global_AB_BASE>=AB_ROLLBACK) &&   (Global_AB_BASE<=AB_COLDRUN_FROM_MAX) ) {
+		if ( (Blocked_by_AB==1) && (Global_AB_BASE>=AB_ROLLBACK) &&   (Global_AB_BASE>=AB_COLDRUN_FROM_MAX) ) {
 			if (ab_stamp==0) {
 				ab_stamp=xTaskGetTickCount();
 			}

@@ -108,7 +108,7 @@ void Calc_Temp(void);
 #define  PULSE40_VALUE       (uint32_t)(COOLER_PERIOD_VALUE*40/100) /* 40%  */
 #define  PULSE20_VALUE       (uint32_t)(COOLER_PERIOD_VALUE*20/100)        /* 20% */
 
-#define TEMP_MAX 80 // celsium
+#define TEMP_MAX 75 // celsium
 #define TEMP_COLRSTART 50
 #define TEMP_ROLLBACK 45
 
