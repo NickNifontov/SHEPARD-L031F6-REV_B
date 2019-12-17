@@ -194,7 +194,7 @@ extern volatile uint8_t Blocked_by_Perek;
 extern volatile uint8_t Blocked_by_PVD;
 extern volatile uint8_t Blocked_by_TEMP;
 
-#define KLAPAN_CNT 4
+#define KLAPAN_CNT 5
 extern volatile uint8_t Blocked_by_Klapan;
 extern volatile uint8_t Blocked_by_150;
 extern volatile uint8_t Blocked_by_Klapan_CNT;

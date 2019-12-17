@@ -203,9 +203,9 @@ void ADC1_COMP_IRQHandler(void)
 		  GPIOB->BRR  = GPIO_BRR_BR_1;
 
 		if (Blocked_by_Klapan_CNT>=KLAPAN_CNT) {
-			//GPIOA->BRR  = GPIO_BRR_BR_6;
-		    //GPIOA->BSRR  = GPIO_BSRR_BS_7;
-			//GPIOB->BRR  = GPIO_BRR_BR_1;
+			GPIOA->BRR  = GPIO_BRR_BR_6;
+		    GPIOA->BSRR  = GPIO_BSRR_BS_7;
+			GPIOB->BRR  = GPIO_BRR_BR_1;
 			Blocked_by_Klapan_CNT=KLAPAN_CNT+1;
 			Blocked_by_Klapan=1;
 		} else {
@@ -221,7 +221,7 @@ void ADC1_COMP_IRQHandler(void)
 			//volatile uint16_t sec_delay=500;
 
 			//10msec
-			volatile uint16_t sec_delay=10+(Blocked_by_Klapan_CNT-1)*50;
+			volatile uint16_t sec_delay=100+(Blocked_by_Klapan_CNT-1)*1000;
 			//volatile uint16_t sec_delay=250;
 
 			for (uint16_t i=0; i<sec_delay; ++i) {
