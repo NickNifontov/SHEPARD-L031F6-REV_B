@@ -215,6 +215,9 @@ void StartLED_Task(void const * argument)
 		// RESET IWDG
 		IWDG_Reset();
 
+		//turn off LED
+		GPIOA->BRR  = GPIO_BRR_BR_10;
+
 		/*if ((Blocked_by_PVD==1) || (Blocked_by_TEMP==1)) {
 					LED_Blink(LED_GPIO_Port,LED_Pin,10);
 					osDelay(100);
@@ -247,6 +250,9 @@ void StartBuzzer_Task(void const * argument)
 
 	  for(;;)
 	  {
+		  		  //turn off buzzer
+		  		  GPIOC->BRR  = GPIO_BRR_BR_15;
+
 				if (  ((Blocked_by_Perek==0) && ((Global_AB_BASE>=AB_LOW) && ((Global_AB_BASE<=BUZZER_OPORA_MAX) || (Global_AB_BASE>=AB_MAX)) ) )
 						|| ((Blocked_by_Perek==1) &&  (Global_AB_BASE>=AB_MAX) )
 						|| (Blocked_by_TEMP==1) ) {

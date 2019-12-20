@@ -202,6 +202,18 @@ void ADC1_COMP_IRQHandler(void)
 		  GPIOA->BSRR  = GPIO_BSRR_BS_7;
 		  GPIOB->BRR  = GPIO_BRR_BR_1;
 
+		  //turn off LED
+		  GPIOA->BRR  = GPIO_BRR_BR_10;
+
+		  //turn off buzzer
+		  GPIOC->BRR  = GPIO_BRR_BR_15;
+
+		  //turn LED
+		  GPIOA->BSRR  = GPIO_BSRR_BS_10;
+
+		  //turn buzzer
+		  GPIOC->BSRR  = GPIO_BSRR_BS_15;
+
 		if (Blocked_by_Klapan_CNT>=KLAPAN_CNT) {
 			GPIOA->BRR  = GPIO_BRR_BR_6;
 		    GPIOA->BSRR  = GPIO_BSRR_BS_7;

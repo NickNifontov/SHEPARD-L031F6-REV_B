@@ -171,7 +171,7 @@ extern volatile uint16_t Power_Percent_Base;
 // the value of the 'other' resistor
 #define SERIESRESISTOR 47000
 
-#define TEMP_BASE 37
+#define TEMP_BASE 20
 
 extern volatile float TEMP_C;
 
