@@ -189,13 +189,24 @@ void StartLoop_Task(void const * argument)
 
 						if (CheckStamp(restart_stamp,RESTART_MAX_LENGTH)==1) {
 							//HAL_GPIO_WritePin(BLOCK_POWER_GPIO_Port, BLOCK_POWER_Pin, GPIO_PIN_SET);
-							GPIOB->BSRR  = GPIO_BSRR_BS_1; //// UNBLOCK POWER
+
+							// Shutdown ALL
+							GPIOA->BRR  = GPIO_BRR_BR_6;
+							GPIOA->BSRR  = GPIO_BSRR_BS_7;
+							GPIOB->BRR  = GPIO_BRR_BR_1;
+
 							Blocked_by_Klapan=0;
 							Blocked_by_150=0;
 							Blocked_by_Klapan_CNT=0;
+
 							osDelay(1000);
-							//HAL_GPIO_WritePin(BLOCK_POWER_GPIO_Port, BLOCK_POWER_Pin, GPIO_PIN_RESET);
-							GPIOB->BRR  = GPIO_BRR_BR_1;  //// UNBLOCK POWER
+
+
+						    // Enable ALL
+							GPIOA->BSRR  = GPIO_BSRR_BS_6;
+							GPIOA->BRR  = GPIO_BRR_BR_7;
+
+							GPIOB->BSRR  = GPIO_BSRR_BS_1;
 						}
 
 			} else {
