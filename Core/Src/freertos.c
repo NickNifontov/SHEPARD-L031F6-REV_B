@@ -202,7 +202,7 @@ void StartLoop_Task(void const * argument)
 							osDelay(1000);
 
 
-						    // Enable ALL
+						    // Enable ALL Power/Block pins
 							GPIOA->BSRR  = GPIO_BSRR_BS_6;
 							GPIOA->BRR  = GPIO_BRR_BR_7;
 
