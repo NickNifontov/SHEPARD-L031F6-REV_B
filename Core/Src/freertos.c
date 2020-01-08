@@ -394,7 +394,7 @@ void StartTEMP_Task(void const * argument)
 	  {
 		    Calc_Temp();
 		    //
-		    if (TEMP_C<TEMP_MAX) {
+		    if (TEMP_C<TEMP_MAX)  {
 			  if ((Blocked_by_TEMP==1) && (TEMP_C<=TEMP_ROLLBACK)) {
 				  if (temp_stamp==0) {
 					  temp_stamp=xTaskGetTickCount();
@@ -404,7 +404,9 @@ void StartTEMP_Task(void const * argument)
 					  temp_stamp=0;
 				 }
 			  } else {
-				  Blocked_by_TEMP=0;
+				  if (Blocked_by_TEMP!=1) {
+					  Blocked_by_TEMP=0;
+				  }
 				  temp_stamp=0;
 			  }
 			  osDelay(500);
