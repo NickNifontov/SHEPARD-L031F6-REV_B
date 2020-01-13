@@ -189,11 +189,14 @@ void StartLoop_Task(void const * argument)
 
 						if (CheckStamp(restart_stamp,RESTART_MAX_LENGTH)==1) {
 							//HAL_GPIO_WritePin(BLOCK_POWER_GPIO_Port, BLOCK_POWER_Pin, GPIO_PIN_SET);
+							//restart_stamp=0;
 
 							// Shutdown ALL
-							GPIOA->BRR  = GPIO_BRR_BR_6;
+							/*GPIOA->BRR  = GPIO_BRR_BR_6;
 							GPIOA->BSRR  = GPIO_BSRR_BS_7;
 							GPIOB->BRR  = GPIO_BRR_BR_1;
+
+							//GPIOA->BRR  = GPIO_BRR_BR_6;
 
 							Blocked_by_Klapan=0;
 							Blocked_by_150=0;
@@ -205,8 +208,40 @@ void StartLoop_Task(void const * argument)
 						    // Enable ALL Power/Block pins
 							GPIOA->BSRR  = GPIO_BSRR_BS_6;
 							GPIOA->BRR  = GPIO_BRR_BR_7;
+							GPIOB->BSRR  = GPIO_BSRR_BS_1;*/
+
+							//GPIOA->BSRR  = GPIO_BSRR_BS_6;
+
+							GPIOA->BSRR  = GPIO_BSRR_BS_6;
+
+							for (uint16_t i=0; i<1000; ++i) {
+																				// 1 microsec
+																				for (int j = 0; j < 32; ++j) {
+																					__asm__ __volatile__("nop\n\t":::"memory");
+																				}
+																	}
+
+
+							//GPIOA->BRR  = GPIO_BRR_BR_7;
+
+
+							GPIOB->BRR  = GPIO_BRR_BR_1;
+
+							//10msec
+										volatile uint16_t sec_delay=30000;
+										//volatile uint16_t sec_delay=250;
+
+										for (uint16_t i=0; i<sec_delay; ++i) {
+													// 1 microsec
+													for (int j = 0; j < 32; ++j) {
+														__asm__ __volatile__("nop\n\t":::"memory");
+													}
+										}
+										//osDelay(1000);
 
 							GPIOB->BSRR  = GPIO_BSRR_BS_1;
+
+
 						}
 
 			} else {

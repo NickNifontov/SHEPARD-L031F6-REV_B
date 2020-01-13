@@ -368,6 +368,8 @@ int main(void)
   IWDG_Reset();
   /* USER CODE END 2 */
 
+  //HAL_Delay(3000);
+
   /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init(); 
 
