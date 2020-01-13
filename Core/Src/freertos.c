@@ -136,7 +136,9 @@ void MX_FREERTOS_Init(void) {
 void StartLoop_Task(void const * argument)
 {
 
-	  uint32_t restart_stamp=0;
+	 // uint32_t restart_stamp=0;
+	  uint8_t restart_flag=0;
+	  uint32_t restart_flag_stamp=0;
 
 	  INV_STATE=0;
 	  ShutDown_with_Power_Off();
@@ -162,11 +164,15 @@ void StartLoop_Task(void const * argument)
 				Enable_INV();
 			}
 			KLAPAN_SIGN=0;
-			restart_stamp=0;
+			//restart_stamp=0;
+			restart_flag=0;
+			restart_flag_stamp=0;
 		} else {
 			if (INV_STATE!=0) {
 				INV_STATE=0;
-				restart_stamp=0;
+				//restart_stamp=0;
+				restart_flag=0;
+				restart_flag_stamp=0;
 				ShutDown_with_Power_On();
 						if ((Blocked_by_Klapan==1) && (Blocked_by_150==1)) {
 							//HAL_GPIO_WritePin(BLOCK_POWER_GPIO_Port, BLOCK_POWER_Pin, GPIO_PIN_SET);
@@ -181,71 +187,58 @@ void StartLoop_Task(void const * argument)
 				KLAPAN_SIGN=1;
 				LED_Blink_X(BUZZER_GPIO_Port,BUZZER_Pin,10,1);
 			}
+
+			// new code
 			if ((Blocked_by_AB==0) && (Blocked_by_PVD==0) && (Blocked_by_TEMP==0)
-					&& (Blocked_by_Perek==1) ) {
-				if (restart_stamp==0) {
-					restart_stamp=xTaskGetTickCount();
-				}
+								&& (Blocked_by_Perek==1) ) {
 
-						if (CheckStamp(restart_stamp,RESTART_MAX_LENGTH)==1) {
-							//HAL_GPIO_WritePin(BLOCK_POWER_GPIO_Port, BLOCK_POWER_Pin, GPIO_PIN_SET);
-							//restart_stamp=0;
+				if (restart_flag==0) {
+					if (restart_flag_stamp==0) {
+						restart_flag_stamp=xTaskGetTickCount();
+					}
+					if (CheckStamp(restart_flag_stamp,RESTART_MAX_LENGTH)==1) {
+						// RESTART CODE BEGIN
 
-							// Shutdown ALL
-							/*GPIOA->BRR  = GPIO_BRR_BR_6;
-							GPIOA->BSRR  = GPIO_BSRR_BS_7;
+							//SHUTDOWN PWM
+							GPIOA->BSRR  = GPIO_BSRR_BS_6;
+							for (uint16_t i=0; i<1000; ++i) {
+								// 1 microsec
+								for (int j = 0; j < 32; ++j) {
+									__asm__ __volatile__("nop\n\t":::"memory");
+								}
+							}
+
+							//SHUTDOWN AND UP INV
 							GPIOB->BRR  = GPIO_BRR_BR_1;
-
-							//GPIOA->BRR  = GPIO_BRR_BR_6;
 
 							Blocked_by_Klapan=0;
 							Blocked_by_150=0;
 							Blocked_by_Klapan_CNT=0;
 
-							osDelay(1000);
 
-
-						    // Enable ALL Power/Block pins
-							GPIOA->BSRR  = GPIO_BSRR_BS_6;
-							GPIOA->BRR  = GPIO_BRR_BR_7;
-							GPIOB->BSRR  = GPIO_BSRR_BS_1;*/
-
-							//GPIOA->BSRR  = GPIO_BSRR_BS_6;
-
-							GPIOA->BSRR  = GPIO_BSRR_BS_6;
-
-							for (uint16_t i=0; i<1000; ++i) {
-																				// 1 microsec
-																				for (int j = 0; j < 32; ++j) {
-																					__asm__ __volatile__("nop\n\t":::"memory");
-																				}
-																	}
-
-
-							//GPIOA->BRR  = GPIO_BRR_BR_7;
-
-
-							GPIOB->BRR  = GPIO_BRR_BR_1;
-
-							//10msec
-										volatile uint16_t sec_delay=30000;
-										//volatile uint16_t sec_delay=250;
-
-										for (uint16_t i=0; i<sec_delay; ++i) {
-													// 1 microsec
-													for (int j = 0; j < 32; ++j) {
-														__asm__ __volatile__("nop\n\t":::"memory");
-													}
-										}
-										//osDelay(1000);
-
+							for (uint16_t i=0; i<30000; ++i) {
+								// 1 microsec
+								for (int j = 0; j < 32; ++j) {
+									__asm__ __volatile__("nop\n\t":::"memory");
+								}
+							}
 							GPIOB->BSRR  = GPIO_BSRR_BS_1;
 
+						// RESTART CODE END
 
-						}
+						restart_flag=1;
+						restart_flag_stamp=xTaskGetTickCount();
+					}
+				} else {
+					if (CheckStamp(restart_flag_stamp,RESTART_MAX_LENGTH_LONG)==1) {
+						restart_flag=0;
+						restart_flag_stamp=0;
+					}
+				}
 
 			} else {
-				restart_stamp=0;
+				restart_flag=0;
+				restart_flag_stamp=0;
 			}
 		}
 

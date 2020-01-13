@@ -251,7 +251,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
 	Global_AB=aADCxConvertedData[1];
 }*/
 
-uint8_t CheckStamp(uint32_t time_stamp, uint8_t time_base) {
+uint8_t CheckStamp(uint32_t time_stamp, uint32_t time_base) {
 	if (xTaskGetTickCount()-time_stamp>time_base*1000) {
 		return 1;
 	} else {

@@ -63,7 +63,7 @@ void __attribute__((optimize("O0"))) ShutDown_with_Power_On(void);
 void LED_Blink(GPIO_TypeDef* sh_port, uint16_t sh_pin,uint16_t sh_delay);
 void LED_Blink_X(GPIO_TypeDef* sh_port, uint16_t sh_pin,uint8_t sh_cnt,uint16_t sh_delay);
 
-uint8_t CheckStamp(uint32_t time_stamp, uint8_t time_base);
+uint8_t CheckStamp(uint32_t time_stamp, uint32_t time_base);
 
 void Calc_Temp(void);
 
@@ -112,7 +112,9 @@ void Calc_Temp(void);
 #define TEMP_COLRSTART 50
 #define TEMP_ROLLBACK 45
 
-#define RESTART_MAX_LENGTH 3 //sec
+#define RESTART_MAX_LENGTH 600 //sec
+#define RESTART_MAX_LENGTH_LONG 7200 //sec
+
 #define BUZZER_MAX_LENGTH 240 // 4 min
 #define COOLER_MAX_LENGTH 60 //sec
 #define AB_MAX_LENGTH 120 //2 min
