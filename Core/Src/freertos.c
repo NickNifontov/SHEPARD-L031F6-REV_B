@@ -227,9 +227,12 @@ void StartLoop_Task(void const * argument)
 						// RESTART CODE END
 
 						restart_flag=1;
-						restart_flag_stamp=xTaskGetTickCount();
+						restart_flag_stamp=0;
 					}
 				} else {
+					if (restart_flag_stamp==0) {
+											restart_flag_stamp=xTaskGetTickCount();
+										}
 					if (CheckStamp(restart_flag_stamp,RESTART_MAX_LENGTH_LONG)==1) {
 						restart_flag=0;
 						restart_flag_stamp=0;
