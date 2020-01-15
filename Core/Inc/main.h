@@ -117,7 +117,7 @@ void Calc_Temp(void);
 #define RESTART_MAX_LENGTH_LONG 7200 //sec
 
 /// !!!! TEST VALUE
-//#define RESTART_MAX_LENGTH 6 //sec
+//#define RESTART_MAX_LENGTH 5 //sec
 //#define RESTART_MAX_LENGTH_LONG 20 //sec
 
 #define BUZZER_MAX_LENGTH 240 // 4 min

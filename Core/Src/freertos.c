@@ -163,6 +163,7 @@ void StartLoop_Task(void const * argument)
 				INV_STATE=1;
 				Enable_INV();
 			}
+			//Enable_INV();
 			KLAPAN_SIGN=0;
 			//restart_stamp=0;
 			restart_flag=0;
@@ -192,6 +193,8 @@ void StartLoop_Task(void const * argument)
 			if ((Blocked_by_AB==0) && (Blocked_by_PVD==0) && (Blocked_by_TEMP==0)
 								&& (Blocked_by_Perek==1) ) {
 
+				//restart_flag=1;
+
 				if (restart_flag==0) {
 					if (restart_flag_stamp==0) {
 						restart_flag_stamp=xTaskGetTickCount();
@@ -201,7 +204,7 @@ void StartLoop_Task(void const * argument)
 
 							//SHUTDOWN PWM
 							GPIOA->BSRR  = GPIO_BSRR_BS_6;
-							for (uint16_t i=0; i<1000; ++i) {
+							for (uint16_t i=0; i<500; ++i) {
 								// 1 microsec
 								for (int j = 0; j < 32; ++j) {
 									__asm__ __volatile__("nop\n\t":::"memory");
@@ -216,7 +219,7 @@ void StartLoop_Task(void const * argument)
 							Blocked_by_Klapan_CNT=0;
 
 
-							for (uint16_t i=0; i<30000; ++i) {
+							for (uint32_t i=0; i<500; ++i) {
 								// 1 microsec
 								for (int j = 0; j < 32; ++j) {
 									__asm__ __volatile__("nop\n\t":::"memory");
@@ -229,7 +232,8 @@ void StartLoop_Task(void const * argument)
 						restart_flag=1;
 						restart_flag_stamp=0;
 					}
-				} else {
+				}
+				else {
 					if (restart_flag_stamp==0) {
 											restart_flag_stamp=xTaskGetTickCount();
 										}
