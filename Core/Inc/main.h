@@ -105,7 +105,7 @@ void Calc_Temp(void);
 #define  COOLER_PERIOD_VALUE       (uint32_t)(31999)  /* Period Value  */
 #define  PULSE100_VALUE       (uint32_t)(COOLER_PERIOD_VALUE)        /* 100% */
 #define  PULSE70_VALUE       (uint32_t)(COOLER_PERIOD_VALUE*70/100)        /* 70% */
-#define  PULSE40_VALUE       (uint32_t)(COOLER_PERIOD_VALUE*40/100) /* 40%  */
+#define  PULSE40_VALUE       (uint32_t)(COOLER_PERIOD_VALUE*30/100) /* 40%  */
 #define  PULSE20_VALUE       (uint32_t)(COOLER_PERIOD_VALUE*20/100)        /* 20% */
 
 #define TEMP_MAX 75 // celsium
@@ -170,15 +170,15 @@ extern volatile uint16_t Power_Percent;
 extern volatile uint16_t Power_Percent_Base;
 
 // resistance at 25 degrees C
-#define THERMISTORNOMINAL 47000
+#define THERMISTORNOMINAL 10000
 // temp. for nominal resistance (almost always 25 C)
 #define TEMPERATURENOMINAL 25
 // The beta coefficient of the thermistor (usually 3000-4000)
 #define BCOEFFICIENT 3950
 // the value of the 'other' resistor
-#define SERIESRESISTOR 47000
+#define SERIESRESISTOR 10000
 
-#define TEMP_BASE 24
+#define TEMP_BASE 3
 
 extern volatile float TEMP_C;
 

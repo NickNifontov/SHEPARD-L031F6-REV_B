@@ -356,11 +356,11 @@ void StartCooler_Task(void const * argument)
 				}
 				osDelay(1000);
 			} else {
-				if ((Power_Percent>=50) || (TEMP_C>TEMP_COLRSTART)) {
+				if ((Power_Percent>=40) || (TEMP_C>TEMP_COLRSTART)) {
 					__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, PULSE100_VALUE);
 					cooler_stamp=0;
 				} else {
-					if ( ((Power_Percent>=25) && (Power_Percent<50)) || ((TEMP_C>TEMP_ROLLBACK) && (TEMP_C<TEMP_COLRSTART))) {
+					if ( ((Power_Percent>=15) && (Power_Percent<40)) || (TEMP_C>TEMP_ROLLBACK)) {
 						__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, PULSE70_VALUE);
 						cooler_stamp=0;
 					} else {
