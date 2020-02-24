@@ -113,7 +113,7 @@ void Calc_Temp(void);
 #define TEMP_ROLLBACK 45
 
 // !!! WORK VALUE
-#define RESTART_MAX_LENGTH 600 //sec
+#define RESTART_MAX_LENGTH 7200 //sec
 #define RESTART_MAX_LENGTH_LONG 7200 //sec
 
 /// !!!! TEST VALUE
