@@ -194,10 +194,8 @@ void ADC1_COMP_IRQHandler(void)
 	      WRITE_REG(EXTI->PR, exti_line);
 	    }*/
 
-
-
 	 // uint32_t exti_line = COMP_GET_EXTI_LINE(hcomp->Instance);
-	  if(READ_BIT(EXTI->PR, COMP_EXTI_LINE_COMP2) != RESET) {
+	  if (READ_BIT(EXTI->PR, COMP_EXTI_LINE_COMP2) != RESET) {
 		  GPIOA->BRR  = GPIO_BRR_BR_6;
 		  GPIOA->BSRR  = GPIO_BSRR_BS_7;
 		  GPIOB->BRR  = GPIO_BRR_BR_1;
@@ -257,6 +255,7 @@ void ADC1_COMP_IRQHandler(void)
 	    //HAL_COMP_IRQHandler(&hcomp2);
 	    WRITE_REG(EXTI->PR, COMP_EXTI_LINE_COMP2);
 	  }
+
 	  //else {
 	  //	  HAL_ADC_IRQHandler(&hadc);
 	  //}

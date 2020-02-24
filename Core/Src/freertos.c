@@ -140,20 +140,24 @@ void StartLoop_Task(void const * argument)
 	  uint8_t restart_flag=0;
 	  uint32_t restart_flag_stamp=0;
 
+
 	  INV_STATE=0;
 	  ShutDown_with_Power_Off();
 
+
 	  /* ###  - Start conversion in DMA mode ################################# */
 	  HAL_ADC_Start_DMA(&hadc,(uint32_t *)aADCxConvertedData,ADC_CONVERTED_DATA_BUFFER_SIZE);
-
-	  /* ###  - Start COMP ################################# */
-	  HAL_COMP_Start(&hcomp2);
 
 	  // Check Perek
 	  HAL_GPIO_EXTI_Callback(SD_Pin);
 
 	  //check PVD
 	  HAL_PWR_PVDCallback();
+
+	  /* ###  - Start COMP ################################# */
+	  HAL_COMP_Start(&hcomp2);
+
+	  osDelay(1000);
 
 	  for(;;)
 	  {
@@ -182,21 +186,18 @@ void StartLoop_Task(void const * argument)
 			}
 			if ( (Blocked_by_Klapan==1) && (KLAPAN_SIGN==0)) {
 				KLAPAN_SIGN=1;
-				LED_Blink_X(BUZZER_GPIO_Port,BUZZER_Pin,10,300);
+			    LED_Blink_X(BUZZER_GPIO_Port,BUZZER_Pin,10,300);
 			}
 			if ( (Blocked_by_150==1) && (KLAPAN_SIGN==0)) {
 				KLAPAN_SIGN=1;
 				LED_Blink_X(BUZZER_GPIO_Port,BUZZER_Pin,10,1);
 			}
 
+
 			// new code
 			restart_flag=1;
 			if ((Blocked_by_AB==0) && (Blocked_by_PVD==0) && (Blocked_by_TEMP==0)
 								&& (Blocked_by_Perek==1) ) {
-
-				Blocked_by_Klapan=0;
-				Blocked_by_150=0;
-				Blocked_by_Klapan_CNT=0;
 
 				if (restart_flag==0) {
 
@@ -380,9 +381,10 @@ void StartCooler_Task(void const * argument)
 void StartAB_Task(void const * argument)
 {
 	  uint32_t ab_stamp=0;
-		while ( (Global_AB_BASE<AB_COLDRUN) && (Blocked_by_Perek==0)) {
+		//while ( (Global_AB_BASE<AB_COLDRUN) && (Blocked_by_Perek==0)) {
+		while ( (Global_AB_BASE<AB_COLDRUN)) {
 			  Blocked_by_AB=1;
-			  osDelay(1000);
+			  osDelay(1);
 		  }
 
 	  Blocked_by_AB=0;
