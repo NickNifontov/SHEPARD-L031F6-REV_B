@@ -162,7 +162,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
 	Global_SLOWCURR=aADCxConvertedData[3];
 
 	if (Global_CURR>=ADC_KLAPAN_1_8_x) {
-		//Blocked_by_150=1;
+		Blocked_by_150=1;
 	}
 
 	Global_CUR_BASE_SUMMATOR=Global_CURR+Global_CUR_BASE_SUMMATOR;

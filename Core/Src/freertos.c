@@ -472,7 +472,7 @@ void StartCUR_Task(void const * argument)
 	  			  } else {
 	  				 // check 120%
 	  				  if (Power_Percent>=POLKA_100) {
-	  					//Blocked_by_150=1;
+	  					Blocked_by_150=1;
 	  				  } else {
 	  					  	  if( (Power_Percent<POLKA_95) && (Blocked_by_Klapan_CNT<=KLAPAN_CNT) && (Blocked_by_Klapan_CNT>0) ) {
 	  							  Blocked_by_Klapan_CNT=0;
@@ -496,7 +496,7 @@ void StartCUR_Task(void const * argument)
 			 Ready_AVG_BASE=0;
 
 			 if (Power_Percent>=POLKA_130) {
-				 //Blocked_by_150=1;
+				 Blocked_by_150=1;
 			 }
 
 		 }
