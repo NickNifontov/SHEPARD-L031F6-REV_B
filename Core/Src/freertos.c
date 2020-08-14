@@ -301,8 +301,8 @@ void StartBuzzer_Task(void const * argument)
 		  		  //turn off buzzer
 		  		  GPIOC->BRR  = GPIO_BRR_BR_15;
 
-				if (  ((Blocked_by_Perek==0) && ((Global_AB_BASE>=AB_LOW) && ((Global_AB_BASE<=BUZZER_OPORA_MAX) || (Global_AB_BASE>=AB_MAX)) ) )
-						|| ((Blocked_by_Perek==1) &&  (Global_AB_BASE>=AB_MAX) )
+				if (  ((Blocked_by_Perek==0) && ((Global_AB_BASE>=AB_LOW) && ((Global_AB_BASE<=BUZZER_OPORA_MAX) ) ) )
+						|| ((Blocked_by_Perek==1)  )
 						|| (Blocked_by_TEMP==1) ) {
 					if (buzzer_stamp==0) {
 						buzzer_stamp=xTaskGetTickCount();
@@ -328,7 +328,9 @@ void StartCooler_Task(void const * argument)
 	  uint32_t cooler_stamp=0;
 
 	  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1) ;
-	  osDelay(1000);
+	  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, PULSE40_VALUE);
+	  osDelay(3000);
+	  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0);
 
 	  for(;;)
 	  {

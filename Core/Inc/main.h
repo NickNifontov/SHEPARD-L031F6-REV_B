@@ -121,7 +121,7 @@ void Calc_Temp(void);
 //#define RESTART_MAX_LENGTH_LONG 20 //sec
 
 #define BUZZER_MAX_LENGTH 240 // 4 min
-#define COOLER_MAX_LENGTH 60 //sec
+#define COOLER_MAX_LENGTH 30 //sec
 #define AB_MAX_LENGTH 120 //2 min
 #define TEMP_DELAY_LENGTH 120 // 5 min
 #define TEMP_ROLLBACK_DELAY_LENGTH 10 //sec
